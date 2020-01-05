@@ -1,11 +1,18 @@
 import React from 'react';
 import Layout from './components/Layout/Layout';
-import './App.css';
+import Invoice from './components/Invoice/Invoice';
 
-const App: React.FC = () => {
+type invoiceNumber= string
+
+const App: React.ReactElement = () => {
+  
   return (
     <div>
-
+      <Layout>
+        <Invoice
+          invoiceNumber='1'
+        />
+      </Layout>
     </div>
   );
 }

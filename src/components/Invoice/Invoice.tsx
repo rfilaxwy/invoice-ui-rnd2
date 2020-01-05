@@ -1,15 +1,28 @@
 import * as React from 'react';
-import InvoiceLines from './InvoiceLines/InvoiceLines';
-
+import InvoiceLines from '../InvoiceLines/InvoiceLines';
+import InputLine from '../InputLine/InputLine'
+import Auxiliary from '../../hoc/Auxiliary'
 //Will be passed an invoice number prop for getting its content from the edge or server
-export interface InvoiceLinesProps {
-    lines: object[]
+type Line = {
+    service: string,
+    cost: number,
+    quantity: number,
+    units: 'string',
+    description: string
+}
+type LineState = {
+    lines: Line[]
 }
 
-export default class Invoice extends React.Component {
+interface InvoiceProps {
+    invoiceNumber: number
+}
 
-    constructor() {
-        super()
+export default class Invoice extends React.Component<InvoiceProps, LineState> {
+
+
+    constructor(props: InvoiceProps) {
+        super(props)
         this.state = {
             lines: [
                 {
@@ -31,11 +44,12 @@ export default class Invoice extends React.Component {
     }
     render() {
         return (
-            <div>
+            <Auxiliary>
+                <InputLine />
                 <InvoiceLines
                     lines={this.state.lines}
                 />
-            </div>
+            </Auxiliary>
         )
     }
 }

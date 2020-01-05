@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Aux from '../../hoc/Aux';
+import Aux from '../../hoc/Auxiliary';
 
 export interface LayoutProps {
     children: React.ReactNode

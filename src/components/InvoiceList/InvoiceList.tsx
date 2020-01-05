@@ -4,7 +4,7 @@ interface InvoiceListProps {
     invoices: string[];
 }
 
-const InvoiceList = (props: any) => {
+const invoiceList = (props: any) => {
     let invoiceList = props.InvoiceListProps.map((listItem: string, index: number) => {
         <li key={index}>{listItem}</li>
     })
@@ -14,3 +14,4 @@ const InvoiceList = (props: any) => {
         </ol>
     )
 }
+export default invoiceList;
