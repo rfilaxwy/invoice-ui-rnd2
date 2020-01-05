@@ -7,7 +7,7 @@ type Line = {
     service: string,
     cost: number,
     quantity: number,
-    units: 'string',
+    units: string,
     description: string
 }
 type LineState = {
