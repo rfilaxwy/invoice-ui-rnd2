@@ -11,7 +11,7 @@ interface Line {
 }
 
 
-const inputLine: (InputLineProps?: Line) => React.ElementType = (InputLineProps?: Line) => {
+const inputLine = (InputLineProps?: Line) => {
     const [line, setLine] = React.useState<Line | null>(InputLineProps);
 
     if (!line) {
