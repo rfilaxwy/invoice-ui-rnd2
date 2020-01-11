@@ -5,7 +5,9 @@ import InvLine from '../InvLine/InvLine';
 
 
 interface InvoiceLinesProps {
-    invoiceLines: object[]
+    invoiceLines: Line[];
+    editLine: (id: number) => void;
+    deleteLine: (id: number) => void;
 }
 interface Line {
     cost: number,
@@ -16,13 +18,12 @@ interface Line {
 }
 
 const invoiceLines = (props: InvoiceLinesProps): React.ReactFragment => {
-    
-    let invoiceLines: React.ReactFragment = props.invoiceLines.map((line: Line => React.ReactComponent) => {
+    let invoiceLines: JSX.Element[] = props.invoiceLines.map((line: Line) => {
         return (
             <InvLine
-                invLine={line}
-
-                //need to pass down edit line and delete line function
+                line={line}
+                editLine={props.editLine}
+                deleteLine={props.deleteLine}
             />
         )
     });
@@ -30,7 +31,6 @@ const invoiceLines = (props: InvoiceLinesProps): React.ReactFragment => {
     return (
         <div>
             {invoiceLines}
-            
         </div>
     )
 }

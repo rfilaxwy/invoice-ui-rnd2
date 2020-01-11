@@ -1,28 +1,26 @@
 import * as React from 'react';
 import classes from './InvLine.module.css'
-import Button from '../Button/Button';
+import InvoiceLineControl from '../InvoiceLineControl/InvoiceLineControl';
 
-interface invLineProps {
+type InvLineProps = {
     id: number,
     service: string,
     quantity: number,
     cost: number,
     units: string,
-    description: string
+    description: string,
+    deleteInvoiceLine: (id: number) => void,
+    editInvoiceLine: (id: number) => void
 }
 
-const invLine = (props:) => (
-    <ul key={props.line.id} className={classes.invLine}>
-        <li>{props.line.service}</li>
-        <li>{props.line.quantity}</li>
-        <li>{props.line.cost} {props.line.units}</li>
-        <li>{props.line.description}</li>
-        <Button
-            onClick={props.editInvoiceLine}
-        >edit</Button>
-        <Button
-            onClick={props.deleteInvoiceLine}
-        >delete</Button>
+const invLine = (invLine: InvLineProps): JSX.Element => (
+    <ul key={invLine.id} className={classes.invLine}>
+        <li>{invLine.service}</li>
+        <li>{invLine.quantity}</li>
+        <li>{invLine.cost} {invLine.units}</li>
+        <li>{invLine.description}</li>
+        <button onClick={() => { invLine.editInvoiceLine(invLine.id) }}>Edit</button>
+        <button onClick={() => { invLine.deleteInvoiceLine(invLine.id) }}>Delete</button>
     </ul>
 )
 

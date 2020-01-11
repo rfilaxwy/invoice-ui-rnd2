@@ -4,6 +4,7 @@ import InputLine from '../InputLine/InputLine'
 import Auxiliary from '../../hoc/Auxiliary'
 //Will be passed an invoice number prop for getting its content from the edge or server
 type Line = {
+    id: string,
     service: string,
     cost: number,
     quantity: number,
@@ -26,6 +27,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         this.state = {
             lines: [
                 {
+                    id: '1',
                     service: 'Gas fitting install',
                     cost: 200,
                     quantity: 4,
@@ -33,6 +35,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                     description: ''
                 },
                 {
+                    id: '2',
                     service: 'Employee tracking service',
                     cost: 70,
                     quantity: 40,
@@ -42,12 +45,18 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
             ]
         }
     }
+
+    editInvoiceLine = (lineNumber: number): void => { }
+    deleteInvoiceLine = (lineNumber: number): void => { }
+
     render() {
         return (
             <Auxiliary>
                 <InputLine />
                 <InvoiceLines
                     lines={this.state.lines}
+                    editLine={this.editInvoiceLine}
+                    deleteLine={this.deleteInvoiceLine}
                 />
             </Auxiliary>
         )

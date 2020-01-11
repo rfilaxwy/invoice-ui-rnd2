@@ -2,15 +2,14 @@ import React from 'react';
 import Layout from './components/Layout/Layout';
 import Invoice from './components/Invoice/Invoice';
 
-type invoiceNumber= string
+type invoiceNumber = number
 
-const App: React.ReactElement = () => {
-  
+const App = () => {
   return (
     <div>
       <Layout>
         <Invoice
-          invoiceNumber='1'
+          invoiceNumber={1}
         />
       </Layout>
     </div>
