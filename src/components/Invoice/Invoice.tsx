@@ -11,9 +11,14 @@ type Line = {
     units: string,
     description: string
 }
-type LineState = {
+type lines = {
     lines: Line[]
 }
+type LineState = {
+    lines: Line[],
+    editLineValues: Line
+}
+
 
 interface InvoiceProps {
     invoiceNumber: number
@@ -42,21 +47,37 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                     units: 'hr',
                     description: 'Monitoring heart rates and heat maps'
                 }
-            ]
+            ],
+            /// Need an editLine state that will be passed to the function of editline in order to update the editline
+            editLineValues: {
+                id: '',
+                service: '',
+                cost: 0,
+                quantity: 0,
+                units: '',
+                description: ''
+            }
         }
     }
 
-    editInvoiceLine = (lineNumber: number): void => { }
-    deleteInvoiceLine = (lineNumber: number): void => { }
+    editInvoiceLine = (lineNumber: string): void => {
+        const { lines } = this.state;
+        let line = lines.filter(lineToCheck => { return lineToCheck.id == lineNumber })
+
+    }
+    deleteInvoiceLine = (lineNumber: string, ): void => { }
 
     render() {
         return (
             <Auxiliary>
-                <InputLine />
+                <h2>Invoice: {this.props.invoiceNumber}</h2>
+                <InputLine
+                // InputLineProps={this.state.editLineValues}
+                />
                 <InvoiceLines
-                    lines={this.state.lines}
-                    editLine={this.editInvoiceLine}
-                    deleteLine={this.deleteInvoiceLine}
+                // lines={this.state.lines}
+                // editLine={this.editInvoiceLine}
+                // deleteLine={this.deleteInvoiceLine}
                 />
             </Auxiliary>
         )
