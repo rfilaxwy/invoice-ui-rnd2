@@ -59,7 +59,12 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
             }
         }
     }
-
+    addInvoiceLine = (line: Line) => {
+        let newlines = this.state.lines;
+        line.id = this.state.lines.length;
+        newlines.push(line);
+        this.setState({ lines: newlines })
+    }
     editInvoiceLine = (lineNumber: string): void => {
         const { lines } = this.state;
         let line = lines.filter(lineToCheck => { return lineToCheck.id == lineNumber })
@@ -72,7 +77,8 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
             <Auxiliary>
                 <h2>Invoice: {this.props.invoiceNumber}</h2>
                 <InputLine
-                // InputLineProps={this.state.editLineValues}
+                    // InputLineProps={this.state.editLineValues}
+                    addLine={this.addInvoiceLine}
                 />
                 <InvoiceLines
                 // lines={this.state.lines}
