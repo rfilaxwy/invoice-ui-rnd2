@@ -69,7 +69,15 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         //This needs fixing to handle no line. 
         return editline ? editline : { id: 1, service: '', cost: 0, quantity: 0, units: '', description: '' };
     }
-    deleteInvoiceLine = (lineNumber: string, ): void => { }
+    deleteInvoiceLine = (id: number): void => {
+        const { lines } = this.state;
+        for (let i = 0; i < lines.length; i++) {
+            if (lines[i]['id'] === id) {
+                lines.splice(i, 0);
+            }
+        }
+        this.setState({ lines: lines })
+    }
 
     getLastid = (): number => {
         //function to get last id and add one to it. Eventually will need to get the last line from API or cache

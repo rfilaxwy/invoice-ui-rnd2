@@ -1,0 +1,23 @@
+.invLine {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-evenly;
+}
+li {
+  width: 14rem;
+  height: 25px;
+  overflow: scroll;
+  overflow-x: hidden;
+  border-bottom: 1px solid gray;
+  text-align: center;
+}
+@media only screen and (max-width: 600px) {
+  .invLine {
+    flex-direction: column;
+  }
+  li {
+    width: 70vw;
+  }
+}
