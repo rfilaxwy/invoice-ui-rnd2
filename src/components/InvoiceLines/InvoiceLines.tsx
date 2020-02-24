@@ -2,37 +2,31 @@ import * as React from 'react';
 
 import classes from './invoiceLines.module.css';
 import InvLine from '../InvLine/InvLine';
+import { Line } from '../Invoice/Invoice';
+
+interface InvoiceLinesProps {
+    lines: Line[],
+    editLine: (id: number) => Line,
+    deleteLine: (id: string) => void
+}
 
 
-// interface InvoiceLinesProps {
-//     lines: Line[];
-//     editLine: (id: string) => void;
-//     deleteLine: (id: string) => void;
-// }
-// interface Line {
-//     cost: number,
-//     service: string,
-//     units: string,
-//     quantity: number,
-//     description: string
-// }
-const invoiceLines = () => (<InvLine />)
-// const invoiceLines = (props: InvoiceLinesProps): React.ReactFragment => {
-//     let invoiceLines: JSX.Element[] = props.lines.map((line: Line) => {
-//         return (
-//             <InvLine
-//             // line={line}
-//             // editLine={props.editLine}
-//             // deleteLine={props.deleteLine}
-//             />
-//         )
-//     });
+const invoiceLines = (props: InvoiceLinesProps): React.ReactFragment => {
+    let invLines: JSX.Element[] = props.lines.map((line: Line) => {
+        return (
+            <InvLine
+                line={line}
+                editLine={props.editLine}
+                deleteLine={props.deleteLine}
+            />
+        )
+    });
 
-//     return (
-//         <div>
-//             {invoiceLines}
-//         </div>
-//     )
-// }
+    return (
+        <div>
+            {invLines}
+        </div>
+    )
+}
 
 export default invoiceLines;
