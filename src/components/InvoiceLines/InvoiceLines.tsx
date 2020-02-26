@@ -12,9 +12,10 @@ interface InvoiceLinesProps {
 
 
 const invoiceLines = (props: InvoiceLinesProps): JSX.Element => {
-    let invLines: JSX.Element[] = props.lines.map((line: Line) => {
+    let invLines: JSX.Element[] = props.lines.map((line: Line, index: number) => {
         return (
             <InvLine
+                key={index}
                 line={line}
                 editLine={props.editLine}
                 deleteLine={props.deleteLine}

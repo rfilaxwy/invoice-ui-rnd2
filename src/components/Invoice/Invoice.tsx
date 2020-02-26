@@ -48,8 +48,6 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                     description: 'Monitoring heart rates and heat maps'
                 }
             ],
-            /// Need an editLine state that will be passed to the function of editline in order to update the editline
-            editLineValues: {}
         }
     }
     addInvoiceLine = (line: Line) => {
