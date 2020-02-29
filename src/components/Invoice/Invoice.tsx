@@ -2,6 +2,7 @@ import * as React from 'react';
 import InvoiceLines from '../InvoiceLines/InvoiceLines';
 import InputLine from '../InputLine/InputLine'
 import Auxiliary from '../../hoc/Auxiliary'
+
 //Will be passed an invoice number prop for getting its content from the edge or server
 export type Line = {
     id: number,
@@ -16,7 +17,7 @@ type lines = {
 }
 type LineState = {
     lines: Line[],
-    editLineValues?: Line | {}
+    editLineValues?: Line | {},
 }
 
 
@@ -47,7 +48,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                     units: 'hr',
                     description: 'Monitoring heart rates and heat maps'
                 }
-            ],
+            ]
         }
     }
     addInvoiceLine = (line: Line) => {
@@ -58,15 +59,17 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         this.setState({ lines: lines })
     }
 
-    editInvoiceLine = (id: number): Line => {
+    save = (line: Line): void => {
         const { lines } = this.state;
-        let editline;
-        for (let line of lines) {
-            if (line.id === id) editline = line
+
+        for (let stateline of lines) {
+            if (stateline.id === line.id) {
+                Object.assign(stateline, line);
+            }
         }
-        //This needs fixing to handle no line. 
-        return editline ? editline : { id: 1, service: '', cost: 0, quantity: 0, units: '', description: '' };
+        this.setState({ lines: lines });
     }
+
     deleteInvoiceLine = (id: number): void => {
         const { lines } = this.state;
         for (let i = 0; i < lines.length; i++) {
@@ -76,6 +79,13 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         }
         this.setState({ lines: lines })
     }
+
+    copyInvoiceLine = (line: Line): void => {
+        const { lines } = this.state;
+        lines.push(line);
+        this.setState({ lines: lines });
+    }
+
 
     getLastid = (): number => {
         //function to get last id and add one to it. Eventually will need to get the last line from API or cache
@@ -90,6 +100,9 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
     }
 
     render() {
+        // let modal = this.state.editModal ? <EditLine line:Line={editLine} /> : null;
+
+
         return (
             <Auxiliary>
                 <h2>Invoice: {this.props.invoiceNumber}</h2>
@@ -99,10 +112,11 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                 />
                 <InvoiceLines
                     lines={this.state.lines}
-                    editLine={this.editInvoiceLine}
                     deleteLine={this.deleteInvoiceLine}
+                    copyLine={this.copyInvoiceLine}
+                    save={this.save}
                 />
-            </Auxiliary>
+            </Auxiliary >
         )
     }
 }

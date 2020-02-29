@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 
 import classes from './invoicelines.module.scss';
 import InvLine from '../InvLine/InvLine';
@@ -6,8 +6,9 @@ import { Line } from '../Invoice/Invoice';
 
 interface InvoiceLinesProps {
     lines: Line[],
-    editLine: (id: number) => Line,
-    deleteLine: (id: number) => void
+    deleteLine: (id: number) => void,
+    copyLine: (line: Line) => void,
+    save: (line: Line) => void
 }
 
 
@@ -17,8 +18,9 @@ const invoiceLines = (props: InvoiceLinesProps): JSX.Element => {
             <InvLine
                 key={index}
                 line={line}
-                editLine={props.editLine}
                 deleteLine={props.deleteLine}
+                copyLine={props.copyLine}
+                save={props.save}
             />
         )
     });

@@ -1,6 +1,4 @@
 import React, { FunctionComponent, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { Line } from '../Invoice/Invoice';
 import classes from './InputLine.module.scss';
 
@@ -15,9 +13,8 @@ interface InputLineProps {
     addLine: (line: Line) => void,
     getId: () => number
 }
-type setters = () => void
 
-const InputLine = (props: InputLineProps) => {
+const InputLine = (props: InputLineProps): JSX.Element => {
 
     const [service, setService] = React.useState<string>(props.service || '')
     const [cost, setCost] = React.useState<number>(props.cost || 0)
@@ -51,4 +48,3 @@ const InputLine = (props: InputLineProps) => {
 
 
 export default InputLine;
-///function to take in all the setters then call them all

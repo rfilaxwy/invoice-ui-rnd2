@@ -9,9 +9,9 @@ const invoiceList = (props: any) => {
         <li key={index}>{listItem}</li>
     })
     return (
-        <ol>
+        <ul>
             {invoiceList}
-        </ol>
+        </ul>
     )
 }
 export default invoiceList;
