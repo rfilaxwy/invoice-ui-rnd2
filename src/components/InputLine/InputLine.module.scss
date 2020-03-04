@@ -1,15 +1,19 @@
 .form {
   display: flex;
   border: none;
-  justify-content: space-evenly;
+  justify-content: space-around;
   flex-wrap: wrap;
 
   input,
   textarea {
     border: none;
+    line-height: 2.5em;
     border-bottom: 1.4px solid rgba(128, 128, 128, 0.493);
   }
+  textarea {
+    max-height: 2.5em;
+  }
   input:hover {
-    background-color: rgba(64, 64, 224, 0.068);
+    background-color: rgba(64, 64, 224, 0.058);
   }
 }

@@ -8,7 +8,8 @@ interface InvoiceLinesProps {
     lines: Line[],
     deleteLine: (id: number) => void,
     copyLine: (line: Line) => void,
-    save: (line: Line) => void
+    save: (line: Line) => void,
+    getId: () => number
 }
 
 
@@ -21,6 +22,7 @@ const invoiceLines = (props: InvoiceLinesProps): JSX.Element => {
                 deleteLine={props.deleteLine}
                 copyLine={props.copyLine}
                 save={props.save}
+                getId={props.getId}
             />
         )
     });

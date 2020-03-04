@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState } from 'react';
 import { Line } from '../Invoice/Invoice';
 import classes from './InputLine.module.scss';
 
+
 interface InputLineProps {
     line?: Line,
     id?: number,
@@ -35,8 +36,8 @@ const InputLine = (props: InputLineProps): JSX.Element => {
         <div>
             <div className={classes.form}>
                 <input type="text" name="Service" placeholder="Type of service" value={service} required onChange={(e) => { setService(e.target.value) }} /><br />
-                <input type="number" name="Cost" placeholder="Cost" value={cost} required onChange={(e) => { setCost(parseInt(e.target.value)) }} /><br />
-                <input type="number" name="Quantity" placeholder="Quantity" value={quantity} required onChange={(e) => { setQuantity(parseInt(e.target.value)) }} /><br />
+                <input type="number" name="Cost" placeholder="Cost" value={cost} required onChange={(e) => { setCost(parseFloat(e.target.value)) }} /><br />
+                <input type="number" name="Quantity" placeholder="Quantity" value={quantity} required onChange={(e) => { setQuantity(parseFloat(e.target.value)) }} /><br />
                 <input type="text" name="Units" placeholder="Units" value={units} required onChange={(e) => { setUnits(e.target.value) }} /><br />
                 <textarea placeholder="Description" value={description} onChange={(e) => { setDescription(e.target.value) }} />
             </div>

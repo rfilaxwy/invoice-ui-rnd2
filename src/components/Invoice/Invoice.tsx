@@ -1,8 +1,10 @@
 import * as React from 'react';
+import Header from '../Header/Header';
 import InvoiceLines from '../InvoiceLines/InvoiceLines';
-import InputLine from '../InputLine/InputLine'
-import Auxiliary from '../../hoc/Auxiliary'
-
+import InputLine from '../InputLine/InputLine';
+import Auxiliary from '../../hoc/Auxiliary';
+import TotalBox from '../TotalBox/TotalBox';
+import { Decimal } from 'decimal.js';
 //Will be passed an invoice number prop for getting its content from the edge or server
 export type Line = {
     id: number,
@@ -15,9 +17,19 @@ export type Line = {
 type lines = {
     lines: Line[]
 }
+export type Address = {
+    street: string,
+    city: string,
+    country: string,
+    state: string,
+}
 type LineState = {
+    gst: number,
     lines: Line[],
-    editLineValues?: Line | {},
+    companyName: string,
+    address: Address,
+    email: string,
+    logo: string
 }
 
 
@@ -31,24 +43,20 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
     constructor(props: InvoiceProps) {
         super(props)
         this.state = {
+            gst: 0.07,
             lines: [
-                {
-                    id: 1,
-                    service: 'Gas fitting install',
-                    cost: 200,
-                    quantity: 4,
-                    units: 'each',
-                    description: ''
-                },
-                {
-                    id: 2,
-                    service: 'Employee tracking service',
-                    cost: 70,
-                    quantity: 40,
-                    units: 'hr',
-                    description: 'Monitoring heart rates and heat maps'
-                }
-            ]
+
+            ],
+            companyName: 'Big Co.',
+            address: {
+                street: '1000 Main Blvd',
+                city: 'New Metropolis City',
+                state: 'Singapore II',
+                country: 'Eliza Prime'
+            },
+            email: 'contactbig@big.com',
+            logo: 'https://robohash.org/bigco' //USE a hash webstie for this for now robohash
+
         }
     }
     addInvoiceLine = (line: Line) => {
@@ -71,24 +79,30 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
     }
 
     deleteInvoiceLine = (id: number): void => {
-        const { lines } = this.state;
+        let { lines } = this.state;
+        let cut;
         for (let i = 0; i < lines.length; i++) {
             if (lines[i]['id'] === id) {
-                lines.splice(i, 0);
+                cut = i;
+
             }
         }
+        if (cut) lines.splice(cut, 1);
         this.setState({ lines: lines })
     }
 
     copyInvoiceLine = (line: Line): void => {
         const { lines } = this.state;
+        const newId = this.getLastid();
+        console.log(newId)
+        line.id = newId + 1
         lines.push(line);
         this.setState({ lines: lines });
     }
 
 
     getLastid = (): number => {
-        //function to get last id and add one to it. Eventually will need to get the last line from API or cache
+        //check all id's and make it one bigger than the biggest.//////////////////////////
         let lineArray = this.state.lines;
         let arrayEnd = lineArray.length >= 1 ? lineArray[lineArray.length - 1]['id'] : 1
         if (typeof arrayEnd === 'number') {
@@ -100,12 +114,29 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
     }
 
     render() {
+        let taxes = 0, subNontaxable = 0, subTaxable = 0, total = 0;
+        let { lines, gst } = this.state;
+        if (lines) {
+            for (let i = 0; i < lines.length; i++) {
+                subTaxable += (lines[i]['cost'] * lines[i]['quantity']);
+            }
+            taxes = parseFloat((subTaxable * gst).toFixed(2));
+            total = parseFloat((taxes + subNontaxable + subTaxable).toFixed(2));
+        }
+
         // let modal = this.state.editModal ? <EditLine line:Line={editLine} /> : null;
-
-
+        const { companyName, address, email, logo } = this.state;
+        console.log(this.state.lines)
         return (
             <Auxiliary>
-                <h2>Invoice: {this.props.invoiceNumber}</h2>
+                <Header
+                    companyName={companyName}
+                    address={address}
+                    logo={logo}
+                    email={email}
+                    invoiceNumber={this.props.invoiceNumber}
+                />
+
                 <InputLine
                     getId={this.getLastid}
                     addLine={this.addInvoiceLine}
@@ -115,6 +146,14 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                     deleteLine={this.deleteInvoiceLine}
                     copyLine={this.copyInvoiceLine}
                     save={this.save}
+                    getId={this.getLastid}
+                />
+
+                <TotalBox
+                    subTaxable={subTaxable}
+                    subNonTaxable={subNontaxable}
+                    gst={taxes}
+                    total={total}
                 />
             </Auxiliary >
         )
