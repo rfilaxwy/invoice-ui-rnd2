@@ -1,10 +1,24 @@
 import React from 'react';
 import Layout from './components/Layout/Layout';
 import Invoice from './components/Invoice/Invoice';
+import CompanyHome from './components/CompanyHome/CompanyHome';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+export type invoice = {
+  invNumber: number,
+  date: string
+}
+export type invoices = invoice[];
 type invoiceNumber = number
 
+
+
 const App = () => {
+  const invoices: invoice[] = [
+    { invNumber: 1, date: '2019/02/01' },
+    { invNumber: 2, date: '2019/02/01' },
+    { invNumber: 3, date: '2019/02/01' },
+  ]
   return (
     <Router>
       <div>
@@ -40,11 +54,9 @@ const App = () => {
             </Layout>
           </Route>
           <Route path="/">
-            <Layout>
-              <Invoice
-                invoiceNumber={1}
-              />
-            </Layout>
+            <CompanyHome
+              invoices={invoices}
+            />
           </Route>
         </Switch>
       </div>

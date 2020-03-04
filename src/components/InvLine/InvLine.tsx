@@ -24,7 +24,7 @@ const InvLine = (props: InvLineProps): JSX.Element => {
     if (edit) {
         let newId = props.getId();
         return (
-            <div >
+            <div className={classes.invLine}>
                 <input type="text" name="Service" placeholder={service} required onChange={(e) => { setService(e.target.value) }} /><br />
                 <input type="number" name="Cost" placeholder={cost.toString()} required onChange={(e) => { setCost(parseInt(e.target.value)) }} /><br />
                 <input type="number" name="Quantity" placeholder={quantity.toString()} required onChange={(e) => { setQuantity(parseInt(e.target.value)) }} /><br />
