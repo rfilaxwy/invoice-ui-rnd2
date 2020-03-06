@@ -40,7 +40,7 @@ const InvLine = (props: InvLineProps): JSX.Element => {
             <li>{quantity}</li>
             <li>{cost} {units}</li>
             <li>{description}</li>
-            <div>
+            <div className={classes.buttons}>
                 <FontAwesomeIcon icon={faEdit} title='Edit' onClick={() => { setEdit(true) }} />
                 <FontAwesomeIcon icon={faCopy} title='Copy' onClick={() => { copyLine({ id: props.getId(), service, units, cost, quantity, description }) }} />
                 <FontAwesomeIcon icon={faTimes} title='Delete' onClick={() => { deleteLine(id) }} />

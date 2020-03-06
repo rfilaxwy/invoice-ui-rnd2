@@ -13,6 +13,17 @@ li {
   border-bottom: 1px solid gray;
   text-align: center;
 }
+.buttons {
+  display: flex;
+  align-items: center;
+  svg {
+    margin: 3px;
+    font-size: 1.2em;
+    color: rgb(123, 243, 123);
+    width: auto;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .invLine {
     flex-direction: column;

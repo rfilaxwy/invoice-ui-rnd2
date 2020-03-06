@@ -5,6 +5,7 @@ import InputLine from '../InputLine/InputLine';
 import Auxiliary from '../../hoc/Auxiliary';
 import TotalBox from '../TotalBox/TotalBox';
 import { Decimal } from 'decimal.js';
+import axios, { AxiosResponse } from 'axios';
 //Will be passed an invoice number prop for getting its content from the edge or server
 export type Line = {
     id: number,
@@ -59,6 +60,35 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
         }
     }
+
+    componentDidMount(): void {
+        const invNum = this.props.invoiceNumber;
+        //USE THE PASSED IN INVOICE NUMBER TO GET THE DATA 
+        //IF Cant find a number or return null etc then new invoice. 
+        if (invNum) {
+            this.getInvoiceLines(1)
+                .then(res => {
+                    console.log(res.data)
+                    let invLines = res.data.lines;
+                    let lines = invLines.map((line: Line) => {
+                        return line;
+                    })
+                    this.setState({ lines: lines })
+                })
+                .catch(err => { console.log(`Error ${err}`) })
+        }
+
+    }
+    getInvoiceLines = async (id: number) => {
+        const response = await fetch(`/api/invoice/${id}`);
+        const body = await response.json();
+        if (response.status !== 200) {
+            throw Error(body.message)
+        }
+        return body;
+    };
+
+
     addInvoiceLine = (line: Line) => {
         let { lines } = this.state;
         let id = this.getLastid() + 1;
@@ -88,6 +118,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
             }
         }
         if (cut) lines.splice(cut, 1);
+        else { lines.splice(0) }
         this.setState({ lines: lines })
     }
 
@@ -126,7 +157,6 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
         // let modal = this.state.editModal ? <EditLine line:Line={editLine} /> : null;
         const { companyName, address, email, logo } = this.state;
-        console.log(this.state.lines)
         return (
             <Auxiliary>
                 <Header

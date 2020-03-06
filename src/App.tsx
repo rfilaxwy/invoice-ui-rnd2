@@ -19,6 +19,7 @@ const App = () => {
     { invNumber: 2, date: '2019/02/01' },
     { invNumber: 3, date: '2019/02/01' },
   ]
+
   return (
     <Router>
       <div>
@@ -28,10 +29,7 @@ const App = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
+              <Link to="/invoice">Invoice</Link>
             </li>
           </ul>
         </nav>
@@ -39,17 +37,10 @@ const App = () => {
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
+          <Route path="/invoice">
             <Layout>
               <Invoice
                 invoiceNumber={3}
-              />
-            </Layout>
-          </Route>
-          <Route path="/users">
-            <Layout>
-              <Invoice
-                invoiceNumber={2}
               />
             </Layout>
           </Route>
