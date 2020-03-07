@@ -15,7 +15,7 @@ export type Line = {
     units: string,
     description: string
 }
-type lines = {
+export type lines = {
     lines: Line[]
 }
 export type Address = {
@@ -63,12 +63,9 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
     componentDidMount(): void {
         const invNum = this.props.invoiceNumber;
-        //USE THE PASSED IN INVOICE NUMBER TO GET THE DATA 
-        //IF Cant find a number or return null etc then new invoice. 
         if (invNum) {
-            this.getInvoiceLines(1)
+            this.getInvoiceLines(invNum)
                 .then(res => {
-                    console.log(res.data)
                     let invLines = res.data.lines;
                     let lines = invLines.map((line: Line) => {
                         return line;
@@ -180,6 +177,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
                 />
 
                 <TotalBox
+
                     subTaxable={subTaxable}
                     subNonTaxable={subNontaxable}
                     gst={taxes}

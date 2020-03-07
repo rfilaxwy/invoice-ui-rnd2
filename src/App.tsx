@@ -19,7 +19,18 @@ const App = () => {
     { invNumber: 2, date: '2019/02/01' },
     { invNumber: 3, date: '2019/02/01' },
   ]
-
+  let lineLinks = invoices.map((inv, index) => {
+    let path = `/invoice/${inv.invNumber}`;
+    return (
+      <Route path={path}>
+        <Layout>
+          <Invoice
+            invoiceNumber={inv.invNumber}
+          />
+        </Layout>
+      </Route>
+    )
+  })
   return (
     <Router>
       <div>
@@ -44,6 +55,7 @@ const App = () => {
               />
             </Layout>
           </Route>
+          {lineLinks}
           <Route path="/">
             <CompanyHome
               invoices={invoices}
