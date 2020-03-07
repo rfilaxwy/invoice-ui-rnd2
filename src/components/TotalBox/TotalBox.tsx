@@ -9,10 +9,10 @@ type totalProps = {
 const TotalBox = (props: totalProps) => {
     return (
         <div className={classes.box}>
-            <p>Nontaxable Subtotal: $ {props.subNonTaxable}</p>
-            <p>Taxable Subtotal: ${props.subTaxable}</p>
-            <p>Taxes: ${props.gst} </p>
-            <p>Total: $ {props.total}</p>
+            <p>Nontaxable Subtotal: $ <span>{props.subNonTaxable}</span></p>
+            <p>Taxable Subtotal: $ <span>{props.subTaxable}</span></p>
+            <p>Taxes: $ <span>{props.gst}</span> </p>
+            <p>Total: $ <span>{props.total}</span></p>
         </div>
     )
 }

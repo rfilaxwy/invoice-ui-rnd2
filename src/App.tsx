@@ -14,6 +14,8 @@ type invoiceNumber = number
 
 
 const App = () => {
+
+  //NEED TO PULL THESE FROM BACKEND THEN PASS THEM
   const invoices: invoice[] = [
     { invNumber: 1, date: '2019/02/01' },
     { invNumber: 2, date: '2019/02/01' },
@@ -56,7 +58,7 @@ const App = () => {
             </Layout>
           </Route>
           {lineLinks}
-          <Route path="/">
+          <Route exact path="/">
             <CompanyHome
               invoices={invoices}
             />
