@@ -19,7 +19,7 @@ li {
   svg {
     margin: 3px;
     font-size: 1.2em;
-    color: rgb(123, 243, 123);
+    color: rgb(91, 174, 241);
     width: auto;
   }
 }
@@ -31,4 +31,9 @@ li {
   li {
     width: 70vw;
   }
+}
+
+.delete {
+  color: rgba(255, 0, 0, 0.5) !important;
+  font-size: 1.4em;
 }

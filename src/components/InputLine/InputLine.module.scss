@@ -14,6 +14,11 @@
     max-height: 2.5em;
   }
   input:hover {
-    background-color: rgba(64, 64, 224, 0.058);
+    background-color: rgb(187, 236, 255);
+  }
+
+  input:focus,
+  textarea:focus {
+    background-color: rgb(187, 236, 255);
   }
 }

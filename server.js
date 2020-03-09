@@ -10,10 +10,16 @@ const companyInvoices = JSON.parse(
   fs.readFileSync("./data/invoices.json", "utf8")
 );
 app.use(cors());
+app.use(express.json());
 
 app.listen(port, () => {
   console.log("listening on 3001");
 });
+
+app.get("/api/invoice", (req, res) => {
+  res.status(200).send(companyInvoices);
+});
+
 app.get("/api/invoice/:id", (req, res) => {
   let returnInvoices,
     greatestInvoiceNumber = null;
@@ -37,4 +43,23 @@ app.get("/api/invoice/:id", (req, res) => {
     res.status(200).send({ data: returnInvoices });
   }
   res.status(200).send({ data: { newInvoiceId: greatestInvoiceNumber } });
+});
+
+app.post("/api/invoice", (req, res) => {
+  console.log(req.body);
+  const { invoiceNumber, lines } = req.body;
+  if (!invoiceNumber) invoiceNumber = companyInvoices.length - 1;
+  const newInvoice = Object.assign({
+    invoiceNumber: invoiceNumber,
+    lines: lines
+  });
+  companyInvoices.push(newInvoice);
+  fs.writeFile("./data/invoices.json", JSON.stringify(companyInvoices), err => {
+    res.status(201).json({
+      status: "Success",
+      data: {
+        companyInvoices
+      }
+    });
+  });
 });

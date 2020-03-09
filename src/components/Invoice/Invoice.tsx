@@ -128,6 +128,11 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         this.setState({ lines: lines });
     }
 
+    // saveInvoice = (): AxiosResponse => {
+    //     const { lines: lines } = this.state;
+    //     const invoiceNumber = this.props.invoiceNumber;
+    //     axios.post('/invoice')
+    // }
 
     getLastid = (): number => {
         //check all id's and make it one bigger than the biggest.//////////////////////////
