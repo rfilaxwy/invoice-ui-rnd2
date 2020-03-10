@@ -4,8 +4,6 @@ import InvoiceLines from '../InvoiceLines/InvoiceLines';
 import InputLine from '../InputLine/InputLine';
 import Auxiliary from '../../hoc/Auxiliary';
 import TotalBox from '../TotalBox/TotalBox';
-import { Decimal } from 'decimal.js';
-import axios, { AxiosResponse } from 'axios';
 //Will be passed an invoice number prop for getting its content from the edge or server
 export type Line = {
     id: number,
@@ -77,6 +75,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
     }
     getInvoiceLines = async (id: number) => {
+        console.log(id)
         const response = await fetch(`/api/invoice/${id}`);
         const body = await response.json();
         if (response.status !== 200) {
@@ -96,9 +95,11 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
     save = (line: Line): void => {
         const { lines } = this.state;
-
         for (let stateline of lines) {
             if (stateline.id === line.id) {
+                console.log(lines)
+
+                console.log(line)
                 Object.assign(stateline, line);
             }
         }
@@ -111,11 +112,10 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         for (let i = 0; i < lines.length; i++) {
             if (lines[i]['id'] === id) {
                 cut = i;
-
             }
         }
         if (cut) lines.splice(cut, 1);
-        else { lines.splice(0) }
+        else { lines.splice(0, 1) }
         this.setState({ lines: lines })
     }
 
@@ -123,6 +123,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         const { lines } = this.state;
         const newId = this.getLastid();
         console.log(newId)
+        console.log(line)
         line.id = newId + 1
         lines.push(line);
         this.setState({ lines: lines });

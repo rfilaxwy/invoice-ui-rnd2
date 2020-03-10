@@ -31,18 +31,19 @@ const InputLine = (props: InputLineProps): JSX.Element => {
         setUnits('');
         setDescription('')
     }
+    let disabled = service.length > 0 && cost > 0 && quantity > 0 && units.length > 0;
+    let buttonStatus = disabled ? 'Fill lines' : "Add line";
 
     return (
         <div>
             <form className={classes.form}>
-                <input type="text" name="Service" placeholder="Type of service" value={service} required onChange={(e) => { setService(e.target.value) }} /><br />
-                <input type="number" name="Cost" placeholder="Cost" value={cost} required onChange={(e) => { setCost(parseFloat(e.target.value)) }} /><br />
-                <input type="number" name="Quantity" placeholder="Quantity" value={quantity} required onChange={(e) => { setQuantity(parseFloat(e.target.value)) }} /><br />
-                <input type="text" name="Units" placeholder="Units" value={units} required onChange={(e) => { setUnits(e.target.value) }} /><br />
+                <input type="text" name="Service" placeholder="Type of service" value={service} onChange={(e) => { setService(e.target.value) }} /><br />
+                <input type="number" name="Cost" placeholder="Cost" value={cost} onChange={(e) => { setCost(parseFloat(e.target.value)) }} /><br />
+                <input type="number" name="Quantity" placeholder="Quantity" value={quantity} onChange={(e) => { setQuantity(parseFloat(e.target.value)) }} /><br />
+                <input type="text" name="Units" placeholder="Units" value={units} onChange={(e) => { setUnits(e.target.value) }} /><br />
                 <textarea placeholder="Description" value={description} onChange={(e) => { setDescription(e.target.value) }} />
-                <button type="submit" onClick={(event) => { props.addLine({ id, service, cost, quantity, units, description }); clear() }}>Add Line</button>
             </form>
-            <button type="button" onClick={() => { props.addLine({ id, service, cost, quantity, units, description }); clear() }}>Add Line</button>
+            <button type="button" onClick={() => { props.addLine({ id, service, cost, quantity, units, description }); clear() }} disabled={!disabled}>{buttonStatus}</button>
             <button onClick={() => clear()}>Clear Line</button>
         </div >
     );

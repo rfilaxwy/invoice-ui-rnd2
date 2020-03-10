@@ -7,7 +7,6 @@ export interface LayoutProps {
 const layout = (props: LayoutProps) => {
     return (
         <Aux>
-            <div>Toolbar</div>
             <main>
                 {props.children}
             </main>

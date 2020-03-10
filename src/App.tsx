@@ -17,25 +17,13 @@ export default class App extends Component {
   state = {
     invoices: [{
       invoiceNumber: 'null',
-      lines: [
-        {
-          "id": 0,
-          "service": 'n/a',
-          "cost": 0,
-          "quantity": 0,
-          "units": 'n/a',
-          "description": 'n/a'
-        }
-      ]
+      lines: []
     }
     ]
   }
 
-
-
-
   getInvoiceLines = async () => {
-    const response = await fetch(`/api/invoice/`);
+    const response = await fetch(`/api/invoice`);
     const body = await response.json();
     if (response.status !== 200) {
       throw Error(body.message)
@@ -44,21 +32,18 @@ export default class App extends Component {
   };
 
   componentDidMount() {
-    let currentInvoices = this.state;
     this.getInvoiceLines()
       .then(res => {
         let invoices = res;
-        console.log(res)
-        let newInvoices = Object.assign({}, invoices);
-        console.log(newInvoices)
         if (invoices) this.setState({ invoices: invoices });
-
+        else { this.setState({ invoices: { id: 0, cost: 0, service: '', description: '', units: '' } }) }
       })
       .catch(err => { console.log(`Error ${err}`) })
   }
 
   render() {
     let lineLinks
+    let newInvNumber = this.state.invoices.length + 1;
     if (this.state.invoices) {
       lineLinks = this.state.invoices.map((inv, index) => {
         let path = `/invoice/${inv.invoiceNumber}`;
@@ -93,7 +78,7 @@ export default class App extends Component {
             <Route path="/invoice">
               <Layout>
                 <Invoice
-                  invoiceNumber={3}
+                  invoiceNumber={newInvNumber}
                 />
               </Layout>
             </Route>
