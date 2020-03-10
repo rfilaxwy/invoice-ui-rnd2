@@ -13,16 +13,17 @@ interface InvLineProps {
 }
 
 const InvLine = (props: InvLineProps): JSX.Element => {
+
     const [edit, setEdit] = React.useState<boolean>(false);
     const { id, service, quantity, cost, description, units } = props.line;
     const { deleteLine, save, copyLine } = props;
-    const [editservice, setService] = React.useState<string>(service)
-    const [editcost, setCost] = React.useState<number>(cost)
-    const [editquantity, setQuantity] = React.useState<number>(quantity)
-    const [editunits, setUnits] = React.useState<string>(units)
-    const [editdescription, setDescription] = React.useState<string>(description)
+    const [editservice, setService] = React.useState<string>(service);
+    const [editcost, setCost] = React.useState<number>(cost);
+    const [editquantity, setQuantity] = React.useState<number>(quantity);
+    const [editunits, setUnits] = React.useState<string>(units);
+    const [editdescription, setDescription] = React.useState<string>(description);
+
     if (edit) {
-        let newId = props.getId();
         return (
             <div className={classes.invLine}>
                 <input type="text" name="Service" placeholder={service} required onChange={(e) => { setService(e.target.value) }} /><br />
@@ -30,10 +31,11 @@ const InvLine = (props: InvLineProps): JSX.Element => {
                 <input type="number" name="Quantity" placeholder={quantity.toString()} required onChange={(e) => { setQuantity(parseInt(e.target.value)) }} /><br />
                 <input type="text" name="Units" placeholder={units} required onChange={(e) => { setUnits(e.target.value) }} /><br />
                 <textarea placeholder={description} onChange={(e) => { setDescription(e.target.value) }} />
-                <button onClick={() => { setEdit(false); save({ id: newId, service: editservice, cost: editcost, quantity: editquantity, units: editunits, description: editdescription }) }}>Save</button>
+                <button onClick={() => { setEdit(false); save({ id: id, service: editservice, cost: editcost, quantity: editquantity, units: editunits, description: editdescription }) }}>Save</button>
             </div>
         )
     }
+
     return (
         <ul key={id} className={classes.invLine}>
             <li>{service}</li>

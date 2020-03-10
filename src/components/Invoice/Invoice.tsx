@@ -75,7 +75,6 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
 
     }
     getInvoiceLines = async (id: number) => {
-        console.log(id)
         const response = await fetch(`/api/invoice/${id}`);
         const body = await response.json();
         if (response.status !== 200) {
@@ -97,9 +96,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
         const { lines } = this.state;
         for (let stateline of lines) {
             if (stateline.id === line.id) {
-                console.log(lines)
 
-                console.log(line)
                 Object.assign(stateline, line);
             }
         }
@@ -122,8 +119,7 @@ export default class Invoice extends React.Component<InvoiceProps, LineState> {
     copyInvoiceLine = (line: Line): void => {
         const { lines } = this.state;
         const newId = this.getLastid();
-        console.log(newId)
-        console.log(line)
+
         line.id = newId + 1
         lines.push(line);
         this.setState({ lines: lines });
