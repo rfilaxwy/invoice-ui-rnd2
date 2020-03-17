@@ -1,10 +1,9 @@
 import React from 'react';
-import axios from 'axios';
 import { inv } from '../../App';
-import { useRouteMatch } from 'react-router-dom';
 import Invoice from '../Invoice/Invoice';
 import Layout from '../Layout/Layout';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import classes from './companyhome.module.scss';
 ///will later take in company info that it will use to populate list of invoices
 
 
@@ -28,7 +27,7 @@ const CompanyHome = (props: CompanyProps): JSX.Element => {
     const invLinks = props.invoices.map((inv: inv, index: number) => {
         let to = `/invoice/${inv.invoiceNumber}`
         return (
-            <li key={index}>
+            <li key={index} className={classes.navlines}>
                 <Link to={to}>Invoice No. {inv.invoiceNumber}</Link>
             </li>
         )

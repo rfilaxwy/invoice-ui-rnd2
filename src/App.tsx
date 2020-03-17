@@ -7,6 +7,7 @@ import { Line } from './components/Invoice/Invoice';
 
 
 
+
 export type inv = {
   invoiceNumber: string,
   lines: Line[]
@@ -62,7 +63,7 @@ export default class App extends Component {
       <Router>
         <div>
           <nav>
-            <ul>
+            <ul className='mainnavbar'>
               <li>
                 <Link to="/">Home</Link>
               </li>
